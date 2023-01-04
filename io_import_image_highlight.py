@@ -1088,12 +1088,12 @@ class IMPORT_IMAGE_OT_to_plane_highlight(Operator, AddObjectHelper):
             "highlights_" + image_object.name_full)
         imported_image_collection.children.link(highlights_collection)
 
-        bpy.ops.mesh.primitive_plane_add(
-            size=0.1, enter_editmode=False, align='WORLD', location=(0, 0, -0.001))
+        bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 0, -0.001))
         plane_object = bpy.context.active_object
         plane_object.name = f"highlight_{image_object.name_full}.000"
         plane_object.lock_location[2] = True
         plane_object.parent = image_object
+        plane_object.matrix_parent_inverse = image_object.matrix_world.inverted()
         plane_object.users_collection[0].objects.unlink(plane_object)
         highlights_collection.objects.link(plane_object)
 
