@@ -3,6 +3,7 @@ from . import async_loop
 from . import combine_edits
 from . import add_scene_with_sound
 from . import io_import_image_highlight
+from . import import_latex_as_curve 
 import subprocess
 import requests
 import hashlib
@@ -836,7 +837,8 @@ classes = (
     combine_edits.Qnal_Combine_Edits,
     add_scene_with_sound.Qnal_Add_Scene_With_Sound,
     add_scene_with_sound.SEQUENCER_MT_add_scene_and_sound,
-    io_import_image_highlight.IMPORT_IMAGE_OT_to_plane_highlight
+    io_import_image_highlight.IMPORT_IMAGE_OT_to_plane_highlight,
+    import_latex_as_curve.WM_OT_import_latex_as_curve
 )
 
 
@@ -848,6 +850,8 @@ def register():
 
     bpy.types.Scene.qnal_data = bpy.props.PointerProperty(
         type=QnalData)
+
+    bpy.types.VIEW3D_MT_add.append(import_latex_as_curve.add_latex_menu_draw)
 
     bpy.types.SEQUENCER_MT_add.append(combine_edits.combine_edits_menu_draw)
     bpy.types.SEQUENCER_MT_add.append(
@@ -871,6 +875,8 @@ def unregister():
     for c in classes[::-1]:
         bpy.utils.unregister_class(c)
 
+    bpy.types.VIEW3D_MT_add.remove(import_latex_as_curve.add_latex_menu_draw)
+
     bpy.types.SEQUENCER_MT_add.remove(combine_edits.combine_edits_menu_draw)
     bpy.types.SEQUENCER_MT_add.remove(
         add_scene_with_sound.add_scene_and_sound_menu_draw)
@@ -886,4 +892,4 @@ def unregister():
 
     bpy.app.handlers.load_post.remove(
         io_import_image_highlight.register_driver)
-    del bpy.app.driver_namespace['import_image__find_plane_corner']
+    # del bpy.app.driver_namespace['import_image__find_plane_corner']

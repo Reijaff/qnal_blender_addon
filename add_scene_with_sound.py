@@ -1,12 +1,7 @@
 import bpy
 
 
-def add_scene_and_sound_menu_draw(self, context):
-    self.layout.menu(
-        "SEQUENCER_MT_add_scene_and_sound",
-        text="Scene with sound",
-        icon="SEQ_SEQUENCER",
-    )
+    
 
 
 class Qnal_Add_Scene_With_Sound(bpy.types.Operator):
@@ -80,3 +75,10 @@ class SEQUENCER_MT_add_scene_and_sound(bpy.types.Menu):
                 text=sc_item.name,
             ).scene = sc_item.name
 
+
+def add_scene_and_sound_menu_draw(self, context):
+    self.layout.menu(
+        "SEQUENCER_MT_add_scene_and_sound",
+        text="Scene with sound",
+        icon="SEQ_SEQUENCER",
+    )
