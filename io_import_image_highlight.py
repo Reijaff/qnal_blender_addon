@@ -961,7 +961,7 @@ class IMPORT_IMAGE_OT_to_plane_highlight(Operator, AddObjectHelper):
         named_attr_node = geo_node_tree.nodes.new(
             'GeometryNodeStoreNamedAttribute')
         named_attr_node.domain = 'FACE'
-        named_attr_node.inputs[1].default_value = "mask"
+        named_attr_node.inputs[2].default_value = "mask"
 
         geo_node_tree.links.new(
             input_node.outputs[0], named_attr_node.inputs[0])
@@ -998,7 +998,7 @@ class IMPORT_IMAGE_OT_to_plane_highlight(Operator, AddObjectHelper):
             proximity_node.outputs[1], map_range_node.inputs[0])
 
         geo_node_tree.links.new(
-            map_range_node.outputs[0], named_attr_node.inputs[3])
+            map_range_node.outputs[0], named_attr_node.inputs[4])
 
         auto_align_nodes(geo_node_tree)
 
