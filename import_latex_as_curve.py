@@ -105,3 +105,12 @@ def add_latex_menu_draw(self, context):
     self.layout.operator_context = "INVOKE_DEFAULT"
     self.layout.operator(
         WM_OT_import_latex_as_curve.bl_idname, text="LaTeX", icon="CON_TRANSFORM")
+
+
+def register():
+    bpy.utils.register_class(WM_OT_import_latex_as_curve)
+    bpy.types.VIEW3D_MT_curve_add.append(add_latex_menu_draw)
+
+def unregister():
+    bpy.utils.unregister_class(WM_OT_import_latex_as_curve)
+    bpy.types.VIEW3D_MT_curve_add.remove(add_latex_menu_draw)

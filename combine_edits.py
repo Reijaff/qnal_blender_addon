@@ -44,3 +44,12 @@ class Qnal_Combine_Edits(bpy.types.Operator):
         bpy.context.scene.frame_end = cur
 
         return {"FINISHED"}
+
+def register():
+
+    bpy.utils.register_class(Qnal_Combine_Edits)
+    bpy.types.SEQUENCER_MT_add.append(combine_edits_menu_draw)
+
+def unregister():
+    bpy.utils.unregister_class(Qnal_Combine_Edits)
+    bpy.types.SEQUENCER_MT_add.remove(combine_edits_menu_draw)

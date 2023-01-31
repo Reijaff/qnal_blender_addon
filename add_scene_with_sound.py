@@ -1,9 +1,6 @@
 import bpy
 
 
-    
-
-
 class Qnal_Add_Scene_With_Sound(bpy.types.Operator):
 
     bl_label = "Scene with sound strips"
@@ -24,7 +21,6 @@ class Qnal_Add_Scene_With_Sound(bpy.types.Operator):
 
         if not in_scene.sequence_editor:
             in_scene.sequence_editor_create()
-        
 
         strips = in_scene.sequence_editor.sequences_all
         for strip in strips:
@@ -82,3 +78,18 @@ def add_scene_and_sound_menu_draw(self, context):
         text="Scene with sound",
         icon="SEQ_SEQUENCER",
     )
+
+
+classes = [Qnal_Add_Scene_With_Sound, SEQUENCER_MT_add_scene_and_sound]
+
+
+def register():
+    for c in classes:
+        bpy.utils.register_class(c)
+    bpy.types.SEQUENCER_MT_add.append(add_scene_and_sound_menu_draw)
+
+
+def unregister():
+    for c in classes[::-1]:
+        bpy.utils.unregister_class(c)
+    bpy.types.SEQUENCER_MT_add.remove(add_scene_and_sound_menu_draw)
