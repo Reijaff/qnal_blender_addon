@@ -3,6 +3,8 @@ import os
 import subprocess
 import sys
 
+from . import bake_audio_frequencies
+from . import marking_of_highlights
 from . import tts_coqui_docker 
 from . import combine_edits
 from . import add_scene_with_sound
@@ -11,11 +13,11 @@ from . import import_latex_as_curve
 
 
 bl_info = {
-    "name": "qnal_addon",
+    "name": "qnal_blender_addon",
     "author": "reijaff",
     "description": "",
     "blender": (3, 4, 0),
-    "version": (0, 4, 0),
+    "version": (0, 5, 0),
     "location": "",
     "warning": "",
     "category": "Generic"
@@ -171,42 +173,6 @@ class Deps_Install(bpy.types.Operator):
 class QnalData(bpy.types.PropertyGroup):
     """Setting per Scene"""
 
-    preview_location: bpy.props.EnumProperty(
-        items=[
-            (
-                "PROJECT",
-                "Project Directory",
-                "Preview will be stored in the project directory",
-            ),
-            (
-                "COMMON",
-                "Common Directory",
-                "Preview will be stored in a common directory specified in preferences",
-            ),
-        ],
-        name="Preview Location",
-        default="COMMON",
-        description="Where to store tts preview sound files",
-    )
-
-    download_location: bpy.props.EnumProperty(
-        items=[
-            (
-                "PROJECT",
-                "Project Directory",
-                "Preview will be stored in the Project Directory",
-            ),
-            (
-                "COMMON",
-                "Common Directory",
-                "Preview will be stored in a common directory specified in preferences",
-            ),
-        ],
-        name="Download Location",
-        default="PROJECT",
-        description="Where to store tts sound files",
-    )
-
     model_name: bpy.props.EnumProperty(
         items=[
             ("tts_models/en/vctk/vits",) * 3,
@@ -342,6 +308,7 @@ class QnalData(bpy.types.PropertyGroup):
         description="Text to synthesize", default="Everything is a test!"
     )
 
+
 classes = [
     QnalAddonPreferences,
     QnalData,
@@ -362,14 +329,17 @@ def register():
     combine_edits.register()
     add_scene_with_sound.register()
     plane_quad_mask.register()
+    marking_of_highlights.register()
+    bake_audio_frequencies.register()
 
 def unregister():
-    for c in classes[::-1]:
-        bpy.utils.unregister_class(c)
-
-
     tts_coqui_docker.unregister()
     import_latex_as_curve.unregister()
     combine_edits.unregister()
     add_scene_with_sound.unregister()
     plane_quad_mask.unregister()
+    marking_of_highlights.unregister()
+    bake_audio_frequencies.unregister()
+
+    for c in classes[::-1]:
+        bpy.utils.unregister_class(c)

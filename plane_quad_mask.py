@@ -14,7 +14,9 @@ class QNAL_OT_PlaneQuadMaskAdd(bpy.types.Operator):
         ao = context.active_object is not None
         am = context.active_object.active_material is not None
         is_mesh = context.active_object.type == "MESH"
-        it = "Image Texture" in context.active_object.active_material.node_tree.nodes
+        it = None
+        if am:
+            it = "Image Texture" in context.active_object.active_material.node_tree.nodes
         return ao and am and is_mesh and it
 
     def execute(self, context):
@@ -98,6 +100,7 @@ def append_node_group(filepath, node_group_name):
 def menu_func(self, context):
     self.layout.operator(QNAL_OT_PlaneQuadMaskAdd.bl_idname, icon='MOD_OPACITY')
 
+addon_keymaps = []
 
 def register():
     bpy.utils.register_class(QNAL_OT_PlaneQuadMaskAdd)

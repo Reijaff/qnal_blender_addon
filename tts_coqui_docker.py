@@ -129,7 +129,7 @@ class Docker_Stop(bpy.types.Operator):
     def unregister():
         bpy.context.preferences.addons[
             __package__
-        ].preferences.docker_server_status = "off"
+        ].preferences.docker_server_status = "off" # TODO
         docker_stop()
 
 

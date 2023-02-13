@@ -5,4 +5,5 @@
 ![add quad mesh highlight](/images/quad_highlight.png)
 ![scene, edits](/images/scene_edits.png)
 ![latex](/images/latex_curve.png)
+![bake audio, marking of highlights](/images/bake_marking_of_highlights.png)
 
