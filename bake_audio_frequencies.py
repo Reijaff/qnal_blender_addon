@@ -1,4 +1,7 @@
 import bpy
+import bpy_extras
+
+# based on https://github.com/JacquesLucke/AudioToMarkers
 
 frequency_ranges = (
     ("0 - 20 Hz", (0, 20)),
@@ -36,7 +39,7 @@ class BakeAudioSettings(bpy.types.PropertyGroup):
         audio_strips_info = []
         for strip in audio_strips:
             audio_strips_info.append(
-                (strip.name, strip.name, strip.sound.filepath))
+                (strip.name, strip.name, bpy.path.abspath(strip.sound.filepath)))
         return audio_strips_info
 
     audio_strip: bpy.props.EnumProperty(
